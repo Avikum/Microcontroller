@@ -1,4 +1,5 @@
 
+
 #include "stm32f407_gpio_header.h"
 #include "stm32f407xx.h"
 
@@ -63,4 +64,15 @@ void gpio_clear_pendingbit(uint16_t pin )
 		EXTI->PR |= (1 << pin);
 	}
 }
+
+/* Configure teh alternate functionality of GPIO */
+void stm32f407_gpio_alt_function(GPIO_TypeDef *GPIOx, uint16_t pin, uint16_t alt_fun_value)
+{
+	if( pin <= 7)
+		GPIOx->AFR[0] |= (alt_fun_value << ( 4* pin)); // lower regiser for pin 0 to pin 7 
+	else
+		GPIOx->AFR[1] |= (alt_fun_value << ( 4* (pin % 8))); // higher register for pin 8 to pin 16=5
+}
+
+
 
