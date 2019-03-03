@@ -1,13 +1,12 @@
-# Microcontroller
 
 #include "stm32f407xx.h"
 
 /* Configure GPIOx port mode register */
 
-#define GPIO_PIN_INPUT_MODE		((uint32_t)0x00 )
-#define GPIO_PIN_OUTPU_MODE		((uint32_t)0x01 )
-#define GPIO_PIN_ATL_MODE		((uint32_t)0x02 )
-#define GPIO_PIN_ANA_MODE		((uint32_t)0x03 )
+#define GPIO_PIN_INPUT_MODE			((uint32_t)0x00 )
+#define GPIO_PIN_OUTPUT_MODE			((uint32_t)0x01 )
+#define GPIO_PIN_ATL_MODE			((uint32_t)0x02 )
+#define GPIO_PIN_ANA_MODE			((uint32_t)0x03 )
 
 
 /* Configure GPIOx port output type register */
@@ -17,16 +16,16 @@
 
 /* Configure GPIOx port output speed register */
 
-#define GPIO_PIN_LOW_SPEED		((uint32_t)0x00)
-#define GPIO_PIN_MEDIUM_SPEED		((uint32_t)0x01)
-#define GPIO_PIN_HIGH_SPEED		((uint32_t)0x02)
-#define GPIO_PIN_VERY_HIGH_SPEED	((uint32_t)0x03)
+#define GPIO_PIN_LOW_SPEED				((uint32_t)0x00)
+#define GPIO_PIN_MEDIUM_SPEED				((uint32_t)0x01)
+#define GPIO_PIN_HIGH_SPEED				((uint32_t)0x02)
+#define GPIO_PIN_VERY_HIGH_SPEED			((uint32_t)0x03)
 
 /* Configure GPIO port pull-up/pull-down register */
 
-#define GPIO_PIN_NO_PULL_UP_DOWN	((uint32_t)0x00)
-#define GPIO_PIN_PULLUP			((uint32)0x01)
-#define GPIO_PIN_PULLDOWN		((uint32)0x02)
+#define GPIO_PIN_NO_PULL_UP_DOWN				((uint32_t)0x00)
+#define GPIO_PIN_PULLUP						((uint32)0x01)
+#define GPIO_PIN_PULLDOWN					((uint32)0x02)
 
 /* GPIO port Address */
 
@@ -58,6 +57,7 @@ typedef struct
 	uint32_t optype;
 	uint32_t speed;
 	uint32_t pull;
+	uint32_t alt;
 } gpio_pin_configuration;
 
 /*  Interrupt Edgle selection mode */
@@ -83,6 +83,8 @@ void stm32f407_gpio_write(GPIO_TypeDef *GPIOx, uint16_t pin, uint8_t val);
 
 uint8_t stm32f407_gpio_read(GPIO_TypeDef *GPIOx, uint16_t pin); 
 
+void stm32f407_gpio_alt_function(GPIO_TypeDef *GPIOx, uint16_t pin, uint16_t alt_fun_value);
+
 /* GPIO Interrupt exposed APIs */
 
 void gpio_configure_interrupt(uint16_t pin, edge_select edge);
@@ -90,6 +92,7 @@ void gpio_configure_interrupt(uint16_t pin, edge_select edge);
 void gpio_enable_interrupt(uint16_t pin, IRQn_Type irq_no );
 
 void gpio_clear_pendingbit(uint16_t pin );
+
 
 
 
